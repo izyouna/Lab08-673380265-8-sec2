@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,10 +18,14 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column
     private String reviewer;
+    @Column
     private Integer rating;
+    @Column
     private String comment;
+    @Column
     private LocalDate reviewDate;
 
     // FK อยู่ที่ฝั่ง Many เสมอ

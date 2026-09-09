@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +21,18 @@ public class Product {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-
+    
+    @Column
     private String name;
+    @Column
     private String category;
+    @Column
     private String brand;
+    @Column
     private Integer stock;
+    @Column
     private Double price;
+    @Column
     private String discountType;
 
     // 1:1 with ProductDetail (SRP)
@@ -126,6 +133,14 @@ public class Product {
         this.reviews = reviews;
     }
 
-  
+    public String getDiscountName() {
+        com.example.demo.strategy.DiscountContext context = new com.example.demo.strategy.DiscountContext();
+        return context.getDiscountName(this.discountType);
+    }
+
+    public Double getFinalPrice() {
+        com.example.demo.strategy.DiscountContext context = new com.example.demo.strategy.DiscountContext();
+        return context.calculateFinalPrice(this);
+    }
         
 }
