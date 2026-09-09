@@ -6,23 +6,16 @@ import com.example.demo.model.Product;
 @Component
 public class DiscountContext {
     public Double calculateFinalPrice(Product product){
-
-        // check product is null or not
-        if(product == null || product.getPrice() == null || product.getDiscountType() == null){
-            throw new IllegalArgumentException("Product, price, and discount type must not be null");
+        if (product == null || product.getPrice() == null) {
+            return 0.0;
         }
 
         String discountType = product.getDiscountType() != null ? product.getDiscountType().toUpperCase() : "NONE";
-        DiscountStrategy discountStrategy;
-
-        switch (discountType) {
-            case "NONE" -> discountStrategy = new NoDiscountStrategy();
-            case "MEMBER" -> discountStrategy = new MemberDiscountStrategy();
-            case "SEASONAL" -> discountStrategy = new SeasonalSaleStrategy();
-            default -> {
-                discountStrategy = new NoDiscountStrategy();
-            }
-        }
+        DiscountStrategy discountStrategy = switch (discountType) {
+            case "MEMBER" -> new MemberDiscountStrategy();
+            case "SEASONAL" -> new SeasonalSaleStrategy();
+            default -> new NoDiscountStrategy();
+        };
 
         return discountStrategy.calculateDiscount(product.getPrice());
     }

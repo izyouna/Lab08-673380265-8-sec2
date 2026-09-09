@@ -20,7 +20,7 @@ public class Product {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     
     @Column
     private String name;
@@ -37,7 +37,7 @@ public class Product {
 
     // 1:1 with ProductDetail (SRP)
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "detail_id")
+    @JoinColumn(name = "detail_id", referencedColumnName = "id")
     private ProductDetail detail;
 
     // 1:N with Review (OCP)
@@ -61,7 +61,7 @@ public class Product {
 
     //Getters
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public String getName() {
@@ -98,7 +98,7 @@ public class Product {
     
     //Setters
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -138,9 +138,21 @@ public class Product {
         return context.getDiscountName(this.discountType);
     }
 
-    public Double getFinalPrice() {
+    public Double getDiscountedPrice() {
         com.example.demo.strategy.DiscountContext context = new com.example.demo.strategy.DiscountContext();
         return context.calculateFinalPrice(this);
+    }
+
+    public Double getFinalPrice() {
+        return getDiscountedPrice();
+    }
+
+    public void addReview(Review review) {
+        if (this.reviews == null) {
+            this.reviews = new ArrayList<>();
+        }
+        this.reviews.add(review);
+        review.setProduct(this);
     }
         
 }

@@ -34,13 +34,14 @@ public class Review {
     private Product product;
 
     public Review() {
+        this.reviewDate = LocalDate.now();
     }
 
     public Review(String reviewer, Integer rating, String comment, LocalDate reviewDate) {
         this.reviewer = reviewer;
         this.rating = rating;
         this.comment = comment;
-        this.reviewDate = reviewDate;
+        this.reviewDate = (reviewDate != null) ? reviewDate : LocalDate.now();
     }
 
     //Getters

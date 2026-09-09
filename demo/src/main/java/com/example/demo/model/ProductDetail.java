@@ -17,23 +17,23 @@ public class ProductDetail {
 
     private String description;
     private String warranty;
-    private String weight;
+    private Double weight;
     private String dimensions;
-    private String manufacturerCountry;
+    private String manufacturedCountry;
 
-    // 1:1 with Product (SRP)
+    // 1:1 with Product (SRP) — inverse side
     @OneToOne(mappedBy = "detail")
     private Product product;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(String description, String warranty, String weight, String dimensions, String manufacturerCountry) {
+    public ProductDetail(String description, String warranty, Double weight, String dimensions, String manufacturedCountry) {
         this.description = description;
         this.warranty = warranty;
         this.weight = weight;
         this.dimensions = dimensions;
-        this.manufacturerCountry = manufacturerCountry;
+        this.manufacturedCountry = manufacturedCountry;
     }
 
     // Getters
@@ -49,7 +49,7 @@ public class ProductDetail {
         return warranty;
     }
 
-    public String getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
@@ -57,8 +57,8 @@ public class ProductDetail {
         return dimensions;
     }
 
-    public String getManufacturerCountry() {
-        return manufacturerCountry;
+    public String getManufacturedCountry() {
+        return manufacturedCountry;
     }
 
     public Product getProduct() {
@@ -78,7 +78,7 @@ public class ProductDetail {
         this.warranty = warranty;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -86,13 +86,11 @@ public class ProductDetail {
         this.dimensions = dimensions;
     }
 
-    public void setManufacturerCountry(String manufacturerCountry) {
-        this.manufacturerCountry = manufacturerCountry;
+    public void setManufacturedCountry(String manufacturedCountry) {
+        this.manufacturedCountry = manufacturedCountry;
     }
 
     public void setProduct(Product product) {
         this.product = product;
     }
-
-    
 }
